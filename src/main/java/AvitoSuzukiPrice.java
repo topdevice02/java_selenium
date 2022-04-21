@@ -4,7 +4,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.util.List;
 
-public class MyFirstTestClass {
+public class AvitoSuzukiPrice {
 
   public static void main(String[] args) throws InterruptedException {
 
