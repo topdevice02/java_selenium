@@ -1,3 +1,6 @@
+.gradle
+build/
+out/
 target/
 pom.xml.tag
 pom.xml.releaseBackup
