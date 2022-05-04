@@ -1,13 +1,13 @@
-package api;
+package api.response;
 
-public class SuccessRegistration {
+public class SuccessRegistrationResponse {
   private Integer id;
   private String token;
 
-  public SuccessRegistration() {
+  public SuccessRegistrationResponse() {
   }
 
-  public SuccessRegistration(Integer id, String token) {
+  public SuccessRegistrationResponse(Integer id, String token) {
     this.id = id;
     this.token = token;
   }

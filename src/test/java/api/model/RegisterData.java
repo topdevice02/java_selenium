@@ -1,4 +1,4 @@
-package api;
+package api.model;
 
 public class RegisterData {
   private String email;
@@ -9,6 +9,10 @@ public class RegisterData {
   public RegisterData(String email, String password) {
     this.email = email;
     this.password = password;
+  }
+
+  public RegisterData(String email) {
+    this.email = email;
   }
 
   public String getEmail() {
