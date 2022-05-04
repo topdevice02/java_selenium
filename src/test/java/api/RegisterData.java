@@ -4,8 +4,7 @@ public class RegisterData {
   private String email;
   private String password;
 
-  public RegisterData() {
-  }
+
 
   public RegisterData(String email, String password) {
     this.email = email;
