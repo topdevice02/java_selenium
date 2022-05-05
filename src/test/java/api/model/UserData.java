@@ -8,16 +8,9 @@ public class UserData {
   private String last_name;
   private String avatar;
 
-  private String name;
-  private String job;
 
 
   public UserData() {
-  }
-
-  public UserData(String name, String job) {
-    this.name = name;
-    this.job = job;
   }
 
   public UserData(int id, String email, String first_name, String last_name, String avatar) {
@@ -26,14 +19,6 @@ public class UserData {
     this.first_name = first_name;
     this.last_name = last_name;
     this.avatar = avatar;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public String getJob() {
-    return job;
   }
 
   public Integer getId() {

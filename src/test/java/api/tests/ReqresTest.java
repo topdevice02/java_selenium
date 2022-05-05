@@ -4,18 +4,25 @@ import api.model.ColorData;
 import api.model.RegisterData;
 import api.model.UserData;
 import api.model.UserTimeData;
+import api.response.CreateUserResponse;
 import api.response.SuccessRegistrationResponse;
 import api.response.UnSuccessRegistrationResponse;
 import api.response.UserTimeResponse;
 import api.specification.Specification;
+import io.restassured.RestAssured;
+import io.restassured.path.json.JsonPath;
+import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.time.Clock;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.notNullValue;
 
 public class ReqresTest {
 
@@ -29,7 +36,7 @@ public class ReqresTest {
     Specification.installSpecification(Specification.requestSpecification(URL), Specification.responseSpecificationOK200());
     List<UserData> users = given()
             .when()
-            .get("api/users?page=2")
+            .get("api/users?page=1")
             .then().log().all()
             .extract().body().jsonPath().getList("data", UserData.class);
     /**
@@ -59,6 +66,29 @@ public class ReqresTest {
     }
   }
 
+  @Test
+  public void checkAvatarAndIdTestNoPojo(){
+    Specification.installSpecification(Specification.requestSpecification(URL), Specification.responseSpecificationOK200());
+    Response response = given()
+            .when()
+            .get("api/users?page=1")
+            .then().log().body()
+          //  .body("data.id", notNullValue())
+           // .body("page", equalTo(1))
+            .extract().response();
+
+    JsonPath jsonPath = response.jsonPath();
+    List<String> emails = jsonPath.get("data.email");
+    List<Integer> ids = jsonPath.get("data.id");
+    List<String> avatars = jsonPath.get("data.avatar");
+
+    for (int i = 0; i < avatars.size(); i++) {
+      Assert.assertTrue(avatars.get(i).contains(ids.get(i).toString()));
+    }
+
+    Assert.assertTrue(emails.stream().allMatch(x -> x.endsWith("@reqres.in")));
+  }
+
   /**
    * Тест успешной регистрации
    */
@@ -80,6 +110,55 @@ public class ReqresTest {
     Assert.assertNotNull(successRegistrationResponse.getToken());
     Assert.assertEquals(id, successRegistrationResponse.getId());
     Assert.assertEquals(token, successRegistrationResponse.getToken());
+  }
+
+  /**
+   * Тест успешной авторизации без POJO классов
+   */
+  @Test
+  public void successLoginTestNoPojo(){
+    Specification.installSpecification(Specification.requestSpecification(URL), Specification.responseSpecificationOK200());
+
+    Map<String,String> user = new HashMap<>();
+    user.put("email", "eve.holt@reqres.in");
+    user.put("password", "cityslicka");
+
+    Response response = given()
+            .body(user)
+            .when()
+            .post("api/login")
+            .then().log().body()
+            //.body("token", equalTo("QpwL5tke4Pnpja7X4"));
+            .extract().response();
+
+    JsonPath jsonPath = response.jsonPath();
+    String token = jsonPath.get("token");
+
+    Assert.assertEquals(token, "QpwL5tke4Pnpja7X4");
+  }
+
+  /**
+   * Тест НЕ успешной авторизации без POJO классов
+   */
+  @Test
+  public void unSuccessLoginTestNoPojo(){
+    Specification.installSpecification(Specification.requestSpecification(URL), Specification.responseSpecificationError400());
+
+    Map<String, String> user = new HashMap<>();
+    user.put("email", "peter@klaven");
+
+    Response response = given()
+            .body(user)
+            .when()
+            .post("api/login")
+            .then().log().body()
+            //.body("token", equalTo("QpwL5tke4Pnpja7X4"));
+            .extract().response();
+
+    JsonPath jsonPath = response.jsonPath();
+    String error = jsonPath.get("error");
+
+    Assert.assertEquals(error, "Missing password");
   }
 
   /**
@@ -172,4 +251,27 @@ public class ReqresTest {
      */
     Assert.assertEquals(updatedAt, currentTime);
   }
+
+  @Test
+  public void creationUserTest(){
+    Specification.installSpecification(Specification.requestSpecification(URL), Specification.responseSpecificationUnique(201));
+
+    String name = "morpheus";
+    String job = "leader";
+
+    UserTimeData user = new UserTimeData(name, job);
+
+    CreateUserResponse createUserResponse = given()
+            .body(user)
+            .when()
+            .post("api/users")
+            .then().log().body()
+            .extract().as(CreateUserResponse.class);
+
+    Assert.assertEquals(createUserResponse.getName(), name);
+    Assert.assertEquals(createUserResponse.getJob(), job);
+    Assert.assertNotNull(createUserResponse.getId());
+    Assert.assertNotNull(createUserResponse.getCreatedAt());
+  }
+  
 }
