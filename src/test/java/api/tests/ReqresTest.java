@@ -273,5 +273,5 @@ public class ReqresTest {
     Assert.assertNotNull(createUserResponse.getId());
     Assert.assertNotNull(createUserResponse.getCreatedAt());
   }
-  
+
 }
