@@ -1,0 +1,1 @@
+{"uuid":"353b6634-6794-4362-bf1a-47d45cbdc8fc","name":"java_selenium","children":["c2ae0f16-ed6c-4cc9-ad49-795ecfa2b978"],"befores":[],"afters":[{"name":"clearCookiesAndLocalStorage","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1652096626623,"stop":1652096628244}],"links":[],"start":1652096618185,"stop":1652096628247}

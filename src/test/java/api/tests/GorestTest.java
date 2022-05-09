@@ -3,7 +3,6 @@ package api.tests;
 import api.model.UserData;
 import api.model.UserGorestData;
 import api.specification.Specification;
-import com.sun.deploy.security.SelectableSecurityManager;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.testng.Assert;
