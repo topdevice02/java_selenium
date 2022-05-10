@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.example</groupId>
-    <artifactId>java_selenium</artifactId>
+    <artifactId>rshb_intech</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -63,7 +63,7 @@
     <build>
         <plugins>
             <plugin>
-               <groupId>org.apache.maven.plugins</groupId>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.22.0</version>
                 <configuration>
