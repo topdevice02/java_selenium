@@ -11,12 +11,12 @@ public class CianHomePage extends BasePage {
   }
 
   private final By countRooms = By.xpath("//button[@title='1, 2 комн.']");
-  private final By option2Rooms = By.xpath("//button[text()='2']");
+  private final By option1Rooms = By.xpath("//button[text()='2']");
   private final By findButton = By.xpath("//a[text()='Найти']");
 
   public CianHomePage enterCountRooms(){
     driver.findElement(countRooms).click();
-    driver.findElement(option2Rooms).click();
+    driver.findElement(option1Rooms).click();
 
     return this;
   }
@@ -26,5 +26,4 @@ public class CianHomePage extends BasePage {
     waitElemetIsVisible(driver.findElement(findButton)).click();
     return this;
   }
-
 }
