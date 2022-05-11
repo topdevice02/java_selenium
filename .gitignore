@@ -2,6 +2,7 @@
 build/
 out/
 target/
+allure-results/
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup
