@@ -50,6 +50,7 @@ public class LoginPage extends BasePage{
     smsOption.click();
     Thread.sleep(1000);
     passwordSms.sendKeys(ConfigProvider.PASSWORD_SMS, Keys.ENTER);
+    Thread.sleep(10000);
     return new MainPage();
   }
 }
