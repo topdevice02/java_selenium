@@ -40,9 +40,9 @@ public class LoginPage extends BasePage{
     PageFactory.initElements(driver, this);
   }
 
-  public LoginPage authorizationClient() throws InterruptedException {
-    login.sendKeys(ConfigProvider.GAGANOV);
-    password.sendKeys(ConfigProvider.PASSWORD);
+  public MainPage authorizationClient(String loginClient, String passwordClient) throws InterruptedException {
+    login.sendKeys(loginClient);
+    password.sendKeys(passwordClient);
     checkbox.click();
     enterButton.click();
     Thread.sleep(3000);
@@ -50,6 +50,6 @@ public class LoginPage extends BasePage{
     smsOption.click();
     Thread.sleep(1000);
     passwordSms.sendKeys(ConfigProvider.PASSWORD_SMS, Keys.ENTER);
-    return this;
+    return new MainPage();
   }
 }
