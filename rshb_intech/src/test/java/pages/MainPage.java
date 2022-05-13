@@ -30,9 +30,59 @@ public class MainPage extends BasePage{
   @FindBy(xpath = "//a[@class='product-info-main-title']")
   private List<WebElement> nameProduct;
 
+  @FindBy(xpath = "//form[contains(@id,'retailCardForm')]//div[contains(@class,'product-info-main-cardinfo')]//a")
+  List<WebElement> allCards;
+
+  @FindBy(xpath = "//form[contains(@id,'retailAccountForm')]//div[contains(@class,'product-info-main')]//a")
+  List<WebElement> allAccounts;
+
+  @FindBy(xpath = "//form[contains(@id,'retailDepositForm')]//div[contains(@class,'product-info-main')]//a")
+  List<WebElement> allDeposits;
+
+  @FindBy(xpath = "//form[contains(@id,'metallicForm')]//div[contains(@class,'product-info-main')]//a")
+  List<WebElement> allMetals;
+
+  @FindBy(xpath = "//form[contains(@id,'retailLoanForm')]//div[contains(@class,'product-info-main')]//a")
+  List<WebElement> allCredits;
 
   public MainPage() {
     PageFactory.initElements(driver,this);
+  }
+
+
+  public MainPage printCards(){
+      allCards.forEach(card -> System.out.println(card.getText()));
+      return this;
+  }
+
+  public MainPage printAccounts(){
+    //allAccounts.forEach(account -> System.out.println(account.getText()));
+    for (WebElement account : allAccounts){
+      if (account.isDisplayed()){
+        System.out.println(account.getText());
+      }
+    }
+    return this;
+  }
+
+  public MainPage printDeposits(){
+//    allDeposits.forEach(deposit -> System.out.println(deposit.getText()));
+    for (WebElement deposit : allDeposits){
+      if (deposit.isDisplayed()){
+        System.out.println(deposit.getText());
+      }
+    }
+    return this;
+  }
+
+  public MainPage printMetals(){
+    allMetals.forEach(metal -> System.out.println(metal.getText()));
+    return this;
+  }
+
+  public MainPage printCredits(){
+    allCredits.forEach(credit -> System.out.println(credit.getText()));
+    return this;
   }
 
   public MainPage printProduts(){
@@ -40,12 +90,40 @@ public class MainPage extends BasePage{
     return this;
   }
 
-  public MainPage printAllProduct(){
+  public MainPage printAllProduct() {
     for (int i = 0; i < products.size(); i++) {
-      System.out.println(products.get(i).getText());
+      switch (i) {
+        case 0:
+          System.out.println("==="+products.get(0).getText()+"===");
+          printCards();
+          break;
+        case 1:
+          System.out.println("==="+products.get(1).getText()+"===");
+          printAccounts();
+          break;
+        case 2:
+          System.out.println("==="+products.get(2).getText()+"===");
+          printDeposits();
+          break;
+        case 3:
+          if (products.get(3).getText().equals("Драгоценные металлы")){
+          System.out.println("==="+products.get(3).getText()+"===");
+          printMetals();
+          break;
+        } else
+          System.out.println("==="+products.get(3).getText()+"===");
+          printCredits();
+          break;
 
-      for(int j = 0; j < nameProduct.size(); j++){
-        System.out.println(nameProduct.get(j).getText());
+        case 4:
+          if (products.get(4).getText().equals("Кредиты")){
+            System.out.println("==="+products.get(4).getText()+"===");
+            printCredits();
+            break;
+          } else
+            System.out.println("==="+products.get(4).getText()+"===");
+            printMetals();
+            break;
       }
     }
     return this;

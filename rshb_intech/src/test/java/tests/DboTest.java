@@ -16,7 +16,7 @@ public class DboTest extends BaseTest {
     MainPage mainPage = new LoginPage().authorizationClient(ConfigProvider.GAGANOV, ConfigProvider.PASSWORD).printAllProduct();
 
     Assert.assertEquals(driver.getTitle(), "Интернет-банк РСХБ");
-    Assert.assertEquals(mainPage.getName(), "Гаганов Константин");
+//    Assert.assertEquals(mainPage.getName(), "Гаганов Константин");
 
   }
 }

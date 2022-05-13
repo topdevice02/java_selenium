@@ -14,7 +14,11 @@ public interface ConfigProvider {
 
   String URL = readConfig().getString("url");
 
-  String GAGANOV = readConfig().getString("usersParams.client.login");
+  String GAGANOV = readConfig().getString("usersParams.client.gaganov");
+  String ARJANOVA = readConfig().getString("usersParams.client.arjanova");
+  String KALININ = readConfig().getString("usersParams.client.kalinin");
+
+
   String PASSWORD = readConfig().getString("password");
   String PASSWORD_SMS = readConfig().getString("passwordSms");
 
