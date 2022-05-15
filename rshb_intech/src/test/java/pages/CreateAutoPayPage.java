@@ -12,13 +12,13 @@ public class CreateAutoPayPage extends BasePage {
   @FindBy(id = "field")
   private WebElement nameAutoPayField;
 
-  @FindBy(id = "docKind_hidden")
+  @FindBy(id = "docKind")
   private WebElement selectTypeAutoPay;
 
-  @FindBy(xpath = "//option[@value='2']")
+  @FindBy(xpath = "//span[text()='Перевод между своими счетами']")
   private WebElement optionTransferBetweenYourAccounts;
 
-  @FindBy(id = "ib-button-text")
+  @FindBy(xpath = "//span[text()='Далее']")
   private WebElement nextButton;
 
   public CreateAutoPayPage() {
@@ -27,8 +27,10 @@ public class CreateAutoPayPage extends BasePage {
 
   public ConnectAutoPayPage fillFormCreateAutoPay() throws InterruptedException {
     String nameAutoPay = getUniqueString("name");
-    nameAutoPayField.sendKeys("1234");
+    nameAutoPayField.sendKeys(nameAutoPay);
+    waitElemetIsVisible(selectTypeAutoPay);
     selectTypeAutoPay.click();
+    waitElemetIsVisible(optionTransferBetweenYourAccounts);
     optionTransferBetweenYourAccounts.click();
     nextButton.click();
     Thread.sleep(5000);

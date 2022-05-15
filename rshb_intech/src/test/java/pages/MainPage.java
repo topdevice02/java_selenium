@@ -132,8 +132,9 @@ public class MainPage extends BasePage{
     return this;
   }
 
-  public CreateAutoPayPage clickAutoPayButton(){
+  public CreateAutoPayPage clickAutoPayButton() throws InterruptedException {
     autoPayButton.click();
+    Thread.sleep(5000);
   return new CreateAutoPayPage();
   }
 

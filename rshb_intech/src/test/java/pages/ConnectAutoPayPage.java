@@ -6,16 +6,16 @@ import org.openqa.selenium.support.PageFactory;
 
 public class ConnectAutoPayPage extends BasePage{
 
-  @FindBy(id = "comboboxDropDown_hidden")
+  @FindBy(xpath = "//span[text()='Выберите счет/вклад/карту списания']")
   private WebElement selectWriteOff;
 
-  @FindBy(xpath = "//select[@id='comboboxDropDown_hidden']//option[contains(text(),'40817...6663')]")
+  @FindBy(xpath = "//span[@id='comboboxDropDown']//span[contains(text(),'40817...6663')]")
   private WebElement optionWriteOff;
 
-  @FindBy(id = "comboboxDropDown_0_hidden")
+  @FindBy(id = "//span[text()='Выберите счет/вклад/карту зачисления']")
   private WebElement selectEnroll;
 
-  @FindBy(xpath = "//select[@id='comboboxDropDown_0_hidden']//option[contains(text(),'40817...3693')]")
+  @FindBy(xpath = "//span[@id='comboboxDropDown_0']//span[contains(text(),'40817...6663')]")
   private WebElement optionEnroll;
 
   @FindBy(id = "maskField")
@@ -43,8 +43,11 @@ public class ConnectAutoPayPage extends BasePage{
   public MainPage fillAndConfirmConnectAutoPay() throws InterruptedException {
     selectWriteOff.click();
     optionWriteOff.click();
-    selectEnroll.click();
-    optionEnroll.click();
+//    waitElemetIsVisible(selectEnroll);
+//    selectEnroll.click();
+//    optionEnroll.click();
+    waitElemetIsVisible(sumField);
+    sumField.sendKeys("100");
     next1Button.click();
     Thread.sleep(5000);
     next2Button.click();
