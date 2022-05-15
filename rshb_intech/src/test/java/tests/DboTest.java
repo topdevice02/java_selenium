@@ -3,6 +3,7 @@ package tests;
 import core.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import pages.CreateAutoPayPage;
 import pages.LoginPage;
 import pages.MainPage;
 import readProperties.ConfigProvider;
@@ -11,12 +12,23 @@ import readProperties.ConfigProvider;
 public class DboTest extends BaseTest {
 
   @Test
-  public void checkLoadPage() throws InterruptedException {
+  public void checkLoadPageTest() throws InterruptedException {
 
     MainPage mainPage = new LoginPage().authorizationClient(ConfigProvider.GAGANOV, ConfigProvider.PASSWORD).printAllProduct();
 
     Assert.assertEquals(driver.getTitle(), "Интернет-банк РСХБ");
-//    Assert.assertEquals(mainPage.getName(), "Гаганов Константин");
+    Assert.assertEquals(mainPage.getName(), "Гаганов Константин");
+  }
+
+  @Test
+  public void createAutoPayTest() throws InterruptedException {
+
+    MainPage mainPage = new LoginPage()
+
+            .authorizationClient(ConfigProvider.GAGANOV, ConfigProvider.PASSWORD)
+            .clickAutoPayButton()
+            .fillFormCreateAutoPay()
+            .fillAndConfirmConnectAutoPay();
 
   }
 }

@@ -45,6 +45,9 @@ public class MainPage extends BasePage{
   @FindBy(xpath = "//form[contains(@id,'retailLoanForm')]//div[contains(@class,'product-info-main')]//a")
   List<WebElement> allCredits;
 
+  @FindBy(xpath = "//img[@class='cross']")
+  private WebElement autoPayButton;
+
   public MainPage() {
     PageFactory.initElements(driver,this);
   }
@@ -127,6 +130,11 @@ public class MainPage extends BasePage{
       }
     }
     return this;
+  }
+
+  public CreateAutoPayPage clickAutoPayButton(){
+    autoPayButton.click();
+  return new CreateAutoPayPage();
   }
 
 
