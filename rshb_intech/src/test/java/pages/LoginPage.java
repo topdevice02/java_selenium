@@ -45,10 +45,14 @@ public class LoginPage extends BasePage{
     password.sendKeys(passwordClient);
     checkbox.click();
     enterButton.click();
-    Thread.sleep(3000);
+    Thread.sleep(2000);
+    waitElemetIsVisible(methodList);
     methodList.click();
+    Thread.sleep(2000);
+    waitElemetIsVisible(smsOption);
     smsOption.click();
-    Thread.sleep(1000);
+    Thread.sleep(2000);
+    waitElemetIsVisible(passwordSms);
     passwordSms.sendKeys(ConfigProvider.PASSWORD_SMS, Keys.ENTER);
     Thread.sleep(10000);
     return new MainPage();

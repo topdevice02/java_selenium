@@ -26,7 +26,7 @@ public class CreateAutoPayPage extends BasePage {
   }
 
   public ConnectAutoPayPage fillFormCreateAutoPay() throws InterruptedException {
-    String nameAutoPay = getUniqueString("name");
+    String nameAutoPay = getUniqueString("autopay");
     nameAutoPayField.sendKeys(nameAutoPay);
     waitElemetIsVisible(selectTypeAutoPay);
     selectTypeAutoPay.click();

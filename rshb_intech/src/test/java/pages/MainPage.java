@@ -48,6 +48,9 @@ public class MainPage extends BasePage{
   @FindBy(xpath = "//img[@class='cross']")
   private WebElement autoPayButton;
 
+  @FindBy(xpath = "//div[@class='contour']//a[1]//div[@class='template']//div[2]")
+  private WebElement autoPayFieldFirst;
+
   public MainPage() {
     PageFactory.initElements(driver,this);
   }
@@ -138,6 +141,9 @@ public class MainPage extends BasePage{
   return new CreateAutoPayPage();
   }
 
+  public String getNameAutoPayFirst(){
+    return autoPayFieldFirst.getText();
+  }
 
   public String getName(){
     return name.getText();

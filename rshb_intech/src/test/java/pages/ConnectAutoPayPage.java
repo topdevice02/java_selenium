@@ -6,16 +6,16 @@ import org.openqa.selenium.support.PageFactory;
 
 public class ConnectAutoPayPage extends BasePage{
 
-  @FindBy(xpath = "//span[text()='Выберите счет/вклад/карту списания']")
+  @FindBy(xpath = "//span[@id='comboboxDropDown']//span[@id='sod_label']")
   private WebElement selectWriteOff;
 
   @FindBy(xpath = "//span[@id='comboboxDropDown']//span[contains(text(),'40817...6663')]")
   private WebElement optionWriteOff;
 
-  @FindBy(id = "//span[text()='Выберите счет/вклад/карту зачисления']")
+  @FindBy(xpath = "//span[@id='comboboxDropDown_0']//span[@id='sod_label']")
   private WebElement selectEnroll;
 
-  @FindBy(xpath = "//span[@id='comboboxDropDown_0']//span[contains(text(),'40817...6663')]")
+  @FindBy(xpath = "//span[@id='comboboxDropDown_0']//span[contains(text(),'40817...8048')]")
   private WebElement optionEnroll;
 
   @FindBy(id = "maskField")
@@ -36,26 +36,61 @@ public class ConnectAutoPayPage extends BasePage{
   @FindBy(id = "nonsubmitImpl_4")
   private WebElement mainTab;
 
+  @FindBy(xpath = "//input[@id='field']")
+  private WebElement nameAutoPayField;
+
   public ConnectAutoPayPage() {
     PageFactory.initElements(driver,this);
   }
 
-  public MainPage fillAndConfirmConnectAutoPay() throws InterruptedException {
+  public String getNameAutoPay(){
+    return nameAutoPayField.getAttribute("value");
+  }
+
+  public ConnectAutoPayPage fillAndConfirmConnectAutoPay() throws InterruptedException {
     selectWriteOff.click();
     optionWriteOff.click();
-//    waitElemetIsVisible(selectEnroll);
-//    selectEnroll.click();
-//    optionEnroll.click();
-    waitElemetIsVisible(sumField);
-    sumField.sendKeys("100");
+
+    Thread.sleep(3000);
+
+    try {
+      PageFactory.initElements(driver,this);
+      selectEnroll.click();
+    }
+    catch(org.openqa.selenium.StaleElementReferenceException ex)
+    {
+      PageFactory.initElements(driver,this);
+      selectEnroll.click();
+    }
+
+    optionEnroll.click();
+
+    Thread.sleep(3000);
+    try {
+      PageFactory.initElements(driver,this);
+      sumField.clear();
+      sumField.sendKeys("100");
+    }
+    catch(org.openqa.selenium.StaleElementReferenceException ex)
+    {
+      PageFactory.initElements(driver,this);
+      sumField.clear();
+      sumField.sendKeys("100");
+    }
+
+    waitElemetIsVisible(next1Button);
     next1Button.click();
-    Thread.sleep(5000);
+    waitElemetIsVisible(next2Button);
+    Thread.sleep(2000);
     next2Button.click();
-    Thread.sleep(5000);
+    waitElemetIsVisible(confirmButton);
+    Thread.sleep(2000);
     confirmButton.click();
-    Thread.sleep(5000);
+    waitElemetIsVisible(okButton);
+    Thread.sleep(2000);
+
     okButton.click();
     mainTab.click();
-    return new MainPage();
+    return this;
   }
 }

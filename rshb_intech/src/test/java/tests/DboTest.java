@@ -3,6 +3,7 @@ package tests;
 import core.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import pages.ConnectAutoPayPage;
 import pages.CreateAutoPayPage;
 import pages.LoginPage;
 import pages.MainPage;
@@ -23,12 +24,26 @@ public class DboTest extends BaseTest {
   @Test
   public void createAutoPayTest() throws InterruptedException {
 
-    MainPage mainPage = new LoginPage()
+    ConnectAutoPayPage connectAutoPayPage = new LoginPage()
 
             .authorizationClient(ConfigProvider.GAGANOV, ConfigProvider.PASSWORD)
             .clickAutoPayButton()
             .fillFormCreateAutoPay()
             .fillAndConfirmConnectAutoPay();
+
+    MainPage mainPage = new MainPage();
+
+    String expectedResult = connectAutoPayPage.getNameAutoPay();
+    String actualResult = mainPage.getNameAutoPayFirst();
+
+    Assert.assertEquals(actualResult, expectedResult);
+
+    System.out.println("На странице создания: " + expectedResult);
+//    System.out.println("На главной странице: " + mainPage.getNameAutoPayFirst());
+
+
+
+
 
   }
 }
