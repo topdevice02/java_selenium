@@ -33,8 +33,7 @@ public class ConnectAutoPayPage extends BasePage{
   @FindBy(xpath = "//input[@name='Ok']")
   private WebElement okButton;
 
-  @FindBy(id = "nonsubmitImpl_4")
-  private WebElement mainTab;
+
 
   @FindBy(xpath = "//input[@id='field']")
   private WebElement nameAutoPayField;

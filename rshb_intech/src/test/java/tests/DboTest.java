@@ -2,9 +2,9 @@ package tests;
 
 import core.BaseTest;
 import org.testng.Assert;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import pages.ConnectAutoPayPage;
-import pages.CreateAutoPayPage;
 import pages.LoginPage;
 import pages.MainPage;
 import readProperties.ConfigProvider;
@@ -12,10 +12,21 @@ import readProperties.ConfigProvider;
 
 public class DboTest extends BaseTest {
 
-  @Test
-  public void checkLoadPageTest() throws InterruptedException {
+  MainPage mainPage;
 
-    MainPage mainPage = new LoginPage().authorizationClient(ConfigProvider.GAGANOV, ConfigProvider.PASSWORD).printAllProduct();
+  @BeforeTest
+
+  public void ensurePrecondition() throws InterruptedException {
+
+    mainPage = new LoginPage().authorizationClient(ConfigProvider.GAGANOV, ConfigProvider.PASSWORD);
+  }
+
+  @Test
+  public void checkLoadPageTest() {
+
+    mainPage.printAllProduct();
+
+    System.out.println("Личный кабинет загружен...");
 
     Assert.assertEquals(driver.getTitle(), "Интернет-банк РСХБ");
     Assert.assertEquals(mainPage.getName(), "Гаганов Константин");
@@ -24,26 +35,16 @@ public class DboTest extends BaseTest {
   @Test
   public void createAutoPayTest() throws InterruptedException {
 
-    ConnectAutoPayPage connectAutoPayPage = new LoginPage()
-
-            .authorizationClient(ConfigProvider.GAGANOV, ConfigProvider.PASSWORD)
-            .clickAutoPayButton()
+    ConnectAutoPayPage connectAutoPayPage = mainPage.clickAutoPayButton()
             .fillFormCreateAutoPay()
             .fillAndConfirmConnectAutoPay();
 
-    MainPage mainPage = new MainPage();
+    System.out.println("Автоплатеж создан...");
 
     String expectedResult = connectAutoPayPage.getNameAutoPay();
     String actualResult = mainPage.getNameAutoPayFirst();
 
     Assert.assertEquals(actualResult, expectedResult);
-
-    System.out.println("На странице создания: " + expectedResult);
-//    System.out.println("На главной странице: " + mainPage.getNameAutoPayFirst());
-
-
-
-
 
   }
 }

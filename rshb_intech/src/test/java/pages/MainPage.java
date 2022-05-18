@@ -12,9 +12,6 @@ import java.util.List;
 
 public class MainPage extends BasePage{
 
-  @FindBy(id = "nonsubmitImpl_4")
-  private WebElement mainTab;
-
   @FindBy(xpath = "//div[@class='product-diagram-name']")
   private WebElement titleFinancialStructure;
 
@@ -91,7 +88,7 @@ public class MainPage extends BasePage{
     return this;
   }
 
-  public MainPage printProduts(){
+  public MainPage printProduсts(){
     products.forEach(product -> System.out.println(product.getText()));
     return this;
   }
