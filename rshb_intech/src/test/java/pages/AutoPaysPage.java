@@ -17,7 +17,7 @@ public class AutoPaysPage extends BasePage{
   @FindBy(xpath = "//tr[contains(@class,'ib-datagrid-row')]//td[6]")
   private List<WebElement> allActionsButtonList;
 
-  @FindBy(xpath = "//tr[contains(@class,'ib-datagrid-row')]//td[5]")
+  @FindBy(xpath = "//tr[contains(@class,'ib-datagrid-row')]//td[5]//a")
   private List<WebElement> statusList;
 
   @FindBy(xpath = "//div[@style='display: block;']//a[2]")
@@ -44,14 +44,22 @@ public class AutoPaysPage extends BasePage{
     return this;
   }
 
-  public AutoPaysPage getStatus(){
+  public String getStatus(){
     WebElement status = driver.findElement(By.xpath("//tr[contains(@class,'ib-datagrid-row')]//td[5]//a"));
-    System.out.println(status.getAttribute("id"));
-    return this;
+    return status.getAttribute("title");
   }
 
   public AutoPaysPage suspendAutoPay() throws InterruptedException {
-    allActionsButtonList.iterator().next().click();
+    for (int i = 0; i < statusList.size(); i++) {
+      String statusText = statusList.get(i).getAttribute("title");
+      if(statusText.equals("Активный")){
+        allActionsButtonList.get(i).click();
+        break;
+      } else {
+        System.out.println((i+1) + " автоплатеж в неподходящем статусе");
+      }
+    }
+    //allActionsButtonList.iterator().next().click();
     suspendButton.click();
     waitElemetIsVisible(confirmMethodList);
     confirmMethodList.click();
