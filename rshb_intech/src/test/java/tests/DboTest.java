@@ -4,6 +4,7 @@ import core.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+import pages.AutoPaysPage;
 import pages.ConnectAutoPayPage;
 import pages.LoginPage;
 import pages.MainPage;
@@ -46,5 +47,13 @@ public class DboTest extends BaseTest {
 
     Assert.assertEquals(actualResult, expectedResult);
 
+  }
+
+  @Test
+
+  public void nameAutoPayTest() throws InterruptedException {
+    AutoPaysPage autoPaysPage = mainPage.goToAutoPays().suspendAutoPay();
+
+    Assert.assertEquals();
   }
 }

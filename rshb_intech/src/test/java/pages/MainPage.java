@@ -1,13 +1,9 @@
 package pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.testng.Assert;
 
-import java.time.chrono.MinguoChronology;
 import java.util.List;
 
 public class MainPage extends BasePage{
@@ -43,10 +39,18 @@ public class MainPage extends BasePage{
   List<WebElement> allCredits;
 
   @FindBy(xpath = "//img[@class='cross']")
-  private WebElement autoPayButton;
+  private WebElement autoPayCreateButton;
 
   @FindBy(xpath = "//div[@class='contour']//a[1]//div[@class='template']//div[2]")
   private WebElement autoPayFieldFirst;
+
+
+  @FindBy(id = "submitImpl_67")
+  private WebElement autoPayListButton;
+
+
+
+
 
   public MainPage() {
     PageFactory.initElements(driver,this);
@@ -133,9 +137,15 @@ public class MainPage extends BasePage{
   }
 
   public CreateAutoPayPage clickAutoPayButton() throws InterruptedException {
-    autoPayButton.click();
+    autoPayCreateButton.click();
     Thread.sleep(5000);
   return new CreateAutoPayPage();
+  }
+
+  public AutoPaysPage goToAutoPays() throws InterruptedException {
+    autoPayListButton.click();
+    Thread.sleep(3000);
+    return new AutoPaysPage();
   }
 
   public String getNameAutoPayFirst(){

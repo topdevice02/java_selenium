@@ -21,17 +21,11 @@ public class LoginPage extends BasePage{
   @FindBy(xpath = "//div[@class='ib-button-text']")
   private WebElement enterButton;
 
-  @FindBy(id = "modelNotOverrideSelect")
-  private WebElement methodList;
-
-  @FindBy(xpath = "//option[text()='SMS-Пароль']")
-  private WebElement smsOption;
 
   @FindBy(name = "passwordField_login")
   private WebElement passwordSms;
 
-  @FindBy(xpath = "//span[text()='Подтвердить']")
-  private WebElement confirmButton;
+
 
 
 
@@ -46,8 +40,8 @@ public class LoginPage extends BasePage{
     checkbox.click();
     enterButton.click();
     Thread.sleep(2000);
-    waitElemetIsVisible(methodList);
-    methodList.click();
+    waitElemetIsVisible(confirmMethodList);
+    confirmMethodList.click();
     Thread.sleep(2000);
     waitElemetIsVisible(smsOption);
     smsOption.click();

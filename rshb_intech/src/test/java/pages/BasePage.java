@@ -11,6 +11,15 @@ abstract public class BasePage {
   @FindBy(id = "nonsubmitImpl_4")
   public WebElement mainTab;
 
+  @FindBy(id = "modelNotOverrideSelect")
+  public WebElement confirmMethodList;
+
+  @FindBy(xpath = "//option[text()='SMS-Пароль']")
+  public WebElement smsOption;
+
+  @FindBy(xpath = "//span[text()='Подтвердить']")
+  public WebElement confirmButton;
+
   protected static WebDriver driver;
 
   public static void createDriver(WebDriver webDriver){
