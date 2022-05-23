@@ -73,8 +73,17 @@ public class DboTest extends BaseTest {
     AutoPaysPage autoPaysPage = mainPage.goToAutoPays().goToModifyAutoPay().modifyAutoPay();
 
     String sum = autoPaysPage.getSum();
-    
+
     Assert.assertTrue(sum.contains(Constant.SUM_MODIFY_AUTOPAY));
   }
 
+  @Test
+  public void disableAutoPayTest() throws InterruptedException {
+    AutoPaysPage autoPaysPage = mainPage.goToAutoPays().disableAutoPay();
+
+    //String status = autoPaysPage.getStatus();
+
+    //Assert.assertEquals(status, "Отключен");
+
+  }
 }

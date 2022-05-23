@@ -29,7 +29,11 @@ public class AutoPaysPage extends BasePage {
   @FindBy(xpath = "//div[@style='display: block;']//a//li[contains(text(),'Изменить')]")
   private WebElement modifyButton;
 
+  @FindBy(xpath = "//div[@style='display: block;']//a//li[contains(text(),'Отключить')]")
+  private WebElement disableButton;
 
+  @FindBy(xpath = "//input[@value='Продолжить']")
+  private WebElement confirmDisableButton;
 
   @FindBy(xpath = "//input[@name='Ok']")
   private WebElement okButton;
@@ -121,4 +125,22 @@ public class AutoPaysPage extends BasePage {
     return new ConnectAutoPayPage();
   }
 
+  public AutoPaysPage disableAutoPay() throws InterruptedException {
+    allActionsButtonList.iterator().next().click();
+    disableButton.click();
+    Thread.sleep(2000);
+    waitElemetIsVisible(confirmDisableButton);
+    confirmDisableButton.click();
+    waitElemetIsVisible(confirmMethodList);
+    confirmMethodList.click();
+    waitElemetIsVisible(smsOption);
+    smsOption.click();
+    Thread.sleep(2000);
+    passwordFieldSms.sendKeys(ConfigProvider.PASSWORD_SMS, Keys.ENTER);
+    Thread.sleep(2000);
+    waitElemetIsVisible(okButton);
+    okButton.click();
+    Thread.sleep(3000);
+    return this;
+  }
 }
