@@ -11,8 +11,11 @@ import java.util.List;
 
 public class AutoPaysPage extends BasePage {
 
-  @FindBy(xpath = "//tr[contains(@class,'ib-datagrid-row')]")
-  private List<WebElement> autoPayList;
+  @FindBy(xpath = "//table[@id='dataGrid']//tbody//tr[contains(@class,'ib-datagrid-row')]")
+  private List<WebElement> autoPayListEnabled;
+
+  @FindBy(xpath = "//table[@id='dataGrid_0']//tbody//tr[contains(@class,'ib-datagrid-row')]")
+  private List<WebElement> autoPayListDisabled;
 
   @FindBy(xpath = "//tr[contains(@class,'ib-datagrid-row')]//td[6]")
   private List<WebElement> allActionsButtonList;
@@ -38,10 +41,28 @@ public class AutoPaysPage extends BasePage {
   @FindBy(xpath = "//input[@name='Ok']")
   private WebElement okButton;
 
+  private String status;
+
 
   public AutoPaysPage() {
     PageFactory.initElements(driver, this);
   }
+
+  public String getStatusEnabledAutoPay(String str){
+    for (WebElement autopay : autoPayListEnabled){
+      List<WebElement> cells = autopay.findElements(By.tagName("td"));
+      String name = cells.get(2).findElement(By.tagName("a")).getText();
+      status = cells.get(4).findElement(By.tagName("a")).getText();
+
+      if(str.equals(name)){
+       break;
+      }
+      //System.out.println(operation + "->" + name);
+    }
+    System.out.println(status);
+    return status;
+  }
+
 
   public AutoPaysPage getNameAutoPays() {
     List<WebElement> nameAutoPay = driver.findElements(By.xpath("//tr[contains(@class,'ib-datagrid-row')]//td[3]//div[@class='autopayListName']"));
