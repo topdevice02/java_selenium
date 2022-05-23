@@ -58,4 +58,14 @@ public class DboTest extends BaseTest {
 
     Assert.assertEquals(status, "Приостановлен");
   }
+
+  @Test
+
+  public void resumeAutoPayTest() throws InterruptedException {
+    AutoPaysPage autoPaysPage = mainPage.goToAutoPays().resumeAutoPay();
+
+    String status = autoPaysPage.getStatus();
+
+    Assert.assertEquals(status, "Активный");
+  }
 }

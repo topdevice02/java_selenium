@@ -20,8 +20,11 @@ public class AutoPaysPage extends BasePage{
   @FindBy(xpath = "//tr[contains(@class,'ib-datagrid-row')]//td[5]//a")
   private List<WebElement> statusList;
 
-  @FindBy(xpath = "//div[@style='display: block;']//a[2]")
+  @FindBy(xpath = "//div[@style='display: block;']//a//li[contains(text(),'Приостановить')]")
   private WebElement suspendButton;
+
+  @FindBy(xpath = "//div[@style='display: block;']//a//li[contains(text(),'Возобновить')]")
+  private WebElement resumeButton;
 
   @FindBy(name = "passwordField")
   private WebElement passwordFieldSms;
@@ -61,6 +64,30 @@ public class AutoPaysPage extends BasePage{
     }
     //allActionsButtonList.iterator().next().click();
     suspendButton.click();
+    waitElemetIsVisible(confirmMethodList);
+    confirmMethodList.click();
+    waitElemetIsVisible(smsOption);
+    smsOption.click();
+    Thread.sleep(2000);
+    passwordFieldSms.sendKeys(ConfigProvider.PASSWORD_SMS, Keys.ENTER);
+    Thread.sleep(2000);
+    waitElemetIsVisible(okButton);
+    okButton.click();
+    Thread.sleep(3000);
+    return this;
+  }
+
+  public AutoPaysPage resumeAutoPay() throws InterruptedException {
+    for (int i = 0; i < statusList.size(); i++) {
+      String statusText = statusList.get(i).getAttribute("title");
+      if(statusText.equals("Приостановлен")){
+        allActionsButtonList.get(i).click();
+        break;
+      } else {
+        System.out.println((i+1) + " автоплатеж в неподходящем статусе");
+      }
+    }
+    resumeButton.click();
     waitElemetIsVisible(confirmMethodList);
     confirmMethodList.click();
     waitElemetIsVisible(smsOption);
