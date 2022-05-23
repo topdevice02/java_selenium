@@ -1,8 +1,11 @@
 package pages;
 
+import constans.Constant;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import readProperties.ConfigProvider;
 
 public class ConnectAutoPayPage extends BasePage{
 
@@ -33,7 +36,8 @@ public class ConnectAutoPayPage extends BasePage{
   @FindBy(xpath = "//input[@name='Ok']")
   private WebElement okButton;
 
-
+  @FindBy(xpath = "//span[text()='Отмена']")
+  private WebElement cancelButton;
 
   @FindBy(xpath = "//input[@id='field']")
   private WebElement nameAutoPayField;
@@ -68,13 +72,13 @@ public class ConnectAutoPayPage extends BasePage{
     try {
       PageFactory.initElements(driver,this);
       sumField.clear();
-      sumField.sendKeys("100");
+      sumField.sendKeys(Constant.SUM_CREATE_AUTOPAY);
     }
     catch(org.openqa.selenium.StaleElementReferenceException ex)
     {
       PageFactory.initElements(driver,this);
       sumField.clear();
-      sumField.sendKeys("100");
+      sumField.sendKeys(Constant.SUM_CREATE_AUTOPAY);
     }
 
     waitElemetIsVisible(next1Button);
@@ -91,5 +95,29 @@ public class ConnectAutoPayPage extends BasePage{
     okButton.click();
     mainTab.click();
     return this;
+  }
+
+  public AutoPaysPage modifyAutoPay() throws InterruptedException {
+    waitElemetIsVisible(sumField);
+    Thread.sleep(2000);
+    sumField.clear();
+    Thread.sleep(1000);
+    sumField.sendKeys(Constant.SUM_MODIFY_AUTOPAY);
+    waitElemetIsVisible(next1Button);
+    next1Button.click();
+    waitElemetIsVisible(confirmButton);
+    Thread.sleep(2000);
+    confirmButton.click();
+    Thread.sleep(2000);
+    waitElemetIsVisible(confirmMethodList);
+    confirmMethodList.click();
+    waitElemetIsVisible(smsOption);
+    smsOption.click();
+    Thread.sleep(2000);
+    passwordFieldSms.sendKeys(ConfigProvider.PASSWORD_SMS, Keys.ENTER);
+    okButton.click();
+    waitElemetIsVisible(cancelButton);
+    cancelButton.click();
+    return new AutoPaysPage();
   }
 }

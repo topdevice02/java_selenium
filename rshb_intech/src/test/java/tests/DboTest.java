@@ -1,5 +1,6 @@
 package tests;
 
+import constans.Constant;
 import core.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
@@ -50,7 +51,6 @@ public class DboTest extends BaseTest {
   }
 
   @Test
-
   public void suspendAutoPayTest() throws InterruptedException {
     AutoPaysPage autoPaysPage = mainPage.goToAutoPays().suspendAutoPay();
 
@@ -60,7 +60,6 @@ public class DboTest extends BaseTest {
   }
 
   @Test
-
   public void resumeAutoPayTest() throws InterruptedException {
     AutoPaysPage autoPaysPage = mainPage.goToAutoPays().resumeAutoPay();
 
@@ -68,4 +67,14 @@ public class DboTest extends BaseTest {
 
     Assert.assertEquals(status, "Активный");
   }
+
+  @Test
+  public void modifyAutoPayTest() throws InterruptedException {
+    AutoPaysPage autoPaysPage = mainPage.goToAutoPays().goToModifyAutoPay().modifyAutoPay();
+
+    String sum = autoPaysPage.getSum();
+    
+    Assert.assertTrue(sum.contains(Constant.SUM_MODIFY_AUTOPAY));
+  }
+
 }

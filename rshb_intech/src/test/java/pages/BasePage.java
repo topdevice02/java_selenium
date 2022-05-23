@@ -11,7 +11,7 @@ abstract public class BasePage {
   @FindBy(id = "nonsubmitImpl_4")
   public WebElement mainTab;
 
-  @FindBy(id = "modelNotOverrideSelect")
+  @FindBy(name = "modelNotOverrideSelect")
   public WebElement confirmMethodList;
 
   @FindBy(xpath = "//option[text()='SMS-Пароль']")
@@ -19,6 +19,9 @@ abstract public class BasePage {
 
   @FindBy(xpath = "//span[text()='Подтвердить']")
   public WebElement confirmButton;
+
+  @FindBy(name = "passwordField")
+  public WebElement passwordFieldSms;
 
   protected static WebDriver driver;
 

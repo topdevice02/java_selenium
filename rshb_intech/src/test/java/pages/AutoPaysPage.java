@@ -9,7 +9,7 @@ import readProperties.ConfigProvider;
 
 import java.util.List;
 
-public class AutoPaysPage extends BasePage{
+public class AutoPaysPage extends BasePage {
 
   @FindBy(xpath = "//tr[contains(@class,'ib-datagrid-row')]")
   private List<WebElement> autoPayList;
@@ -26,19 +26,20 @@ public class AutoPaysPage extends BasePage{
   @FindBy(xpath = "//div[@style='display: block;']//a//li[contains(text(),'Возобновить')]")
   private WebElement resumeButton;
 
-  @FindBy(name = "passwordField")
-  private WebElement passwordFieldSms;
+  @FindBy(xpath = "//div[@style='display: block;']//a//li[contains(text(),'Изменить')]")
+  private WebElement modifyButton;
+
+
 
   @FindBy(xpath = "//input[@name='Ok']")
   private WebElement okButton;
-
 
 
   public AutoPaysPage() {
     PageFactory.initElements(driver, this);
   }
 
-  public AutoPaysPage getNameAutoPays(){
+  public AutoPaysPage getNameAutoPays() {
     List<WebElement> nameAutoPay = driver.findElements(By.xpath("//tr[contains(@class,'ib-datagrid-row')]//td[3]//div[@class='autopayListName']"));
 
     for (int i = 0; i < nameAutoPay.size(); i++) {
@@ -47,19 +48,24 @@ public class AutoPaysPage extends BasePage{
     return this;
   }
 
-  public String getStatus(){
+  public String getStatus() {
     WebElement status = driver.findElement(By.xpath("//tr[contains(@class,'ib-datagrid-row')]//td[5]//a"));
     return status.getAttribute("title");
+  }
+
+  public String getSum(){
+    WebElement sum = driver.findElement(By.xpath("//tr[contains(@class,'ib-datagrid-row')]//td[4]//a//div"));
+    return sum.getText();
   }
 
   public AutoPaysPage suspendAutoPay() throws InterruptedException {
     for (int i = 0; i < statusList.size(); i++) {
       String statusText = statusList.get(i).getAttribute("title");
-      if(statusText.equals("Активный")){
+      if (statusText.equals("Активный")) {
         allActionsButtonList.get(i).click();
         break;
       } else {
-        System.out.println((i+1) + " автоплатеж в неподходящем статусе");
+        System.out.println((i + 1) + " автоплатеж в неподходящем статусе");
       }
     }
     //allActionsButtonList.iterator().next().click();
@@ -80,11 +86,11 @@ public class AutoPaysPage extends BasePage{
   public AutoPaysPage resumeAutoPay() throws InterruptedException {
     for (int i = 0; i < statusList.size(); i++) {
       String statusText = statusList.get(i).getAttribute("title");
-      if(statusText.equals("Приостановлен")){
+      if (statusText.equals("Приостановлен")) {
         allActionsButtonList.get(i).click();
         break;
       } else {
-        System.out.println((i+1) + " автоплатеж в неподходящем статусе");
+        System.out.println((i + 1) + " автоплатеж в неподходящем статусе");
       }
     }
     resumeButton.click();
@@ -100,4 +106,19 @@ public class AutoPaysPage extends BasePage{
     Thread.sleep(3000);
     return this;
   }
+
+  public ConnectAutoPayPage goToModifyAutoPay() throws InterruptedException {
+    for (int i = 0; i < statusList.size(); i++) {
+      String statusText = statusList.get(i).getAttribute("title");
+      if (statusText.equals("Активный") || statusText.equals("Приостановлен")) {
+        allActionsButtonList.get(i).click();
+        break;
+      } else {
+        System.out.println((i + 1) + " автоплатеж в неподходящем статусе");
+      }
+    }
+    modifyButton.click();
+    return new ConnectAutoPayPage();
+  }
+
 }

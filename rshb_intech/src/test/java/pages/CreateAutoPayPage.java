@@ -36,6 +36,4 @@ public class CreateAutoPayPage extends BasePage {
     Thread.sleep(5000);
     return new ConnectAutoPayPage();
   }
-
-
 }
