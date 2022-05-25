@@ -79,13 +79,14 @@ public class DboTest extends BaseTest {
 
   @Test
   public void disableAutoPayTest() throws InterruptedException {
+
     AutoPaysPage autoPaysPage = mainPage.goToAutoPays();
 
-    autoPaysPage.getStatusEnabledAutoPay("autopay20220516_170912");
+    String name = autoPaysPage.getNameAutoPayEnabled(0);
 
-    //String status = autoPaysPage.getStatus();
+    autoPaysPage.disableAutoPay();
 
-    //Assert.assertEquals(status, "Отключен");
+    Assert.assertTrue(autoPaysPage.isPresent(name));
 
   }
 }

@@ -59,18 +59,47 @@ public class AutoPaysPage extends BasePage {
       }
       //System.out.println(operation + "->" + name);
     }
-    System.out.println(status);
     return status;
   }
 
 
-  public AutoPaysPage getNameAutoPays() {
+  public String getNameAutoPayEnabled(int index) {
     List<WebElement> nameAutoPay = driver.findElements(By.xpath("//tr[contains(@class,'ib-datagrid-row')]//td[3]//div[@class='autopayListName']"));
 
+    String result = null;
     for (int i = 0; i < nameAutoPay.size(); i++) {
-      System.out.println(nameAutoPay.get(i).getText());
+      if(i == index){
+        result = nameAutoPay.get(i).getAttribute("title");
+        break;
+      }
     }
-    return this;
+    return result;
+  }
+
+  public String getNameAutoPayDisabled(int index) {
+    List<WebElement> nameAutoPay = driver.findElements(By.xpath("//table[@id='dataGrid_0']//tr[contains(@class,'ib-datagrid-row')]//td[3]//a"));
+
+    String result = null;
+    for (int i = 0; i < nameAutoPay.size(); i++) {
+      if(i == index){
+        result = nameAutoPay.get(i).getAttribute("title");
+        break;
+      }
+    }
+    return result;
+  }
+
+  public Boolean isPresent(String name){
+    boolean isTrue = false;
+    List<WebElement> nameAutoPay = driver.findElements(By.xpath("//table[@id='dataGrid_0']//tr[contains(@class,'ib-datagrid-row')]//td[3]//a"));
+
+    for (int i = 0; i < nameAutoPay.size(); i++) {
+      if(nameAutoPay.get(i).getAttribute("title").equals(name)){
+        isTrue = true;
+        break;
+      }
+    }
+    return isTrue;
   }
 
   public String getStatus() {
@@ -163,5 +192,22 @@ public class AutoPaysPage extends BasePage {
     okButton.click();
     Thread.sleep(3000);
     return this;
+  }
+
+  @Override
+  public String toString() {
+    return "AutoPaysPage{" +
+            "autoPayListEnabled=" + autoPayListEnabled +
+            ", autoPayListDisabled=" + autoPayListDisabled +
+            ", allActionsButtonList=" + allActionsButtonList +
+            ", statusList=" + statusList +
+            ", suspendButton=" + suspendButton +
+            ", resumeButton=" + resumeButton +
+            ", modifyButton=" + modifyButton +
+            ", disableButton=" + disableButton +
+            ", confirmDisableButton=" + confirmDisableButton +
+            ", okButton=" + okButton +
+            ", status='" + status + '\'' +
+            '}';
   }
 }

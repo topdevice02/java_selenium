@@ -45,7 +45,7 @@ public class MainPage extends BasePage{
   private WebElement autoPayFieldFirst;
 
 
-  @FindBy(id = "submitImpl_67")
+  @FindBy(xpath = "//a[contains(text(),'Автоплатежи')]")
   private WebElement autoPayListButton;
 
 
@@ -144,6 +144,8 @@ public class MainPage extends BasePage{
 
   public AutoPaysPage goToAutoPays() throws InterruptedException {
     autoPayListButton.click();
+    Thread.sleep(3000);
+    driver.navigate().refresh();
     Thread.sleep(3000);
     return new AutoPaysPage();
   }
